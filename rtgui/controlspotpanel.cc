@@ -1388,7 +1388,7 @@ CursorShape ControlSpotPanel::getCursor(int objectID)
     }
 }
 
-bool ControlSpotPanel::mouseOver(int modifierKey)
+const bool ControlSpotPanel::mouseOver(int modifierKey)
 {
     EditDataProvider* editProvider_ = getEditProvider();
     const auto s = treeview_.get_selection();
@@ -1401,7 +1401,7 @@ bool ControlSpotPanel::mouseOver(int modifierKey)
     const auto selIter = s->get_selected();
     Gtk::TreeModel::Row selRow = *selIter;
 
-    int object_ = editProvider_->object;
+    int object_ = editProvider_->getObject();
 
     if (object_ != lastObject_) {
         if (object_ == -1) {
@@ -1544,7 +1544,7 @@ bool ControlSpotPanel::button1Pressed(int modifierKey)
     }
 
     lastCoord_->set(provider->posImage.x + provider->deltaImage.x, provider->posImage.y + provider->deltaImage.y);
-    EditSubscriber::action = ES_ACTION_DRAGGING;
+    EditSubscriber::action = EditSubscriber::Action::DRAGGING;
     return true;
 }
 
@@ -1552,7 +1552,7 @@ bool ControlSpotPanel::button1Released()
 {
     // printf("button1Released\n");
 
-    EditSubscriber::action = ES_ACTION_NONE;
+    EditSubscriber::action = EditSubscriber::Action::NONE;
     return true;
 }
 

@@ -1525,8 +1525,8 @@ int RawImageSource::load (const Glib::ustring &fname, bool firstFrameOnly)
     fileName = fname;
 
     if (plistener) {
-        plistener->setProgressStr("Decoding...");
-        plistener->setProgress(0.0);
+        plistener->setProgressStr ("PROGRESSBAR_DECODING");
+        plistener->setProgress (0.0);
     }
 
     ri = new RawImage(fname);
@@ -1921,8 +1921,8 @@ void RawImageSource::preprocess(const RAWParams &raw, const LensProfParams &lens
 
     if (ri->getSensorType() == ST_BAYER && (raw.hotPixelFilter > 0 || raw.deadPixelFilter > 0)) {
         if (plistener) {
-            plistener->setProgressStr("Hot/Dead Pixel Filter...");
-            plistener->setProgress(0.0);
+            plistener->setProgressStr ("PROGRESSBAR_HOTDEADPIXELFILTER");
+            plistener->setProgress (0.0);
         }
 
         if (!bitmapBads) {
@@ -1988,8 +1988,8 @@ void RawImageSource::preprocess(const RAWParams &raw, const LensProfParams &lens
 
     if (ri->getSensorType() == ST_BAYER && raw.bayersensor.greenthresh > 0) {
         if (plistener) {
-            plistener->setProgressStr("Green equilibrate...");
-            plistener->setProgress(0.0);
+            plistener->setProgressStr ("PROGRESSBAR_GREENEQUIL");
+            plistener->setProgress (0.0);
         }
 
         GreenEqulibrateThreshold thresh(0.01 * raw.bayersensor.greenthresh);
@@ -2022,8 +2022,8 @@ void RawImageSource::preprocess(const RAWParams &raw, const LensProfParams &lens
 
     if (ri->getSensorType() == ST_BAYER && raw.bayersensor.linenoise > 0) {
         if (plistener) {
-            plistener->setProgressStr("Line Denoise...");
-            plistener->setProgress(0.0);
+            plistener->setProgressStr ("PROGRESSBAR_LINEDENOISE");
+            plistener->setProgress (0.0);
         }
 
         std::unique_ptr<CFALineDenoiseRowBlender> line_denoise_rowblender;
@@ -2039,8 +2039,8 @@ void RawImageSource::preprocess(const RAWParams &raw, const LensProfParams &lens
 
     if ((raw.ca_autocorrect || fabs(raw.cared) > 0.001 || fabs(raw.cablue) > 0.001) && ri->getSensorType() == ST_BAYER) {     // Auto CA correction disabled for X-Trans, for now...
         if (plistener) {
-            plistener->setProgressStr("CA Auto Correction...");
-            plistener->setProgress(0.0);
+            plistener->setProgressStr ("PROGRESSBAR_RAWCACORR");
+            plistener->setProgress (0.0);
         }
 
         if (numFrames == 4) {
